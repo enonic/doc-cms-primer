@@ -359,18 +359,43 @@ image::images/site.png["Add the application to your site", width="544"]
 
 TIP: You are completely free to group your content in folders and tree-structures, as well as setting permissions as you desire within the site, just like we do with `HMDB`.
 
-== Customizing the API
+== API setup
 
-The API comes from the https://market.enonic.com/
+The `/api` endpoint is exposed through a controller mapping in the file `src/main/resources/site/site.xml`.
+The controller uses underlying functionality provided through a library.
+A dependency in the `build.gradle` file, located at your project root ensures that the library is downloaded and built into your app.
+
+=== Customizing API
+
+The Headless API is provided by the https://developer.enonic.com/docs/guillotine-app[Guillotine project].
+You may programmatically customize or extend the GraphQL api, as described in the documentation above.
+
+=== CORS headers
+
+Sharing of resources across domains (origins) is known as https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[CORS].
+For security reasons, browsers will prevent POST requests from one domain to another by default.
+
+GraphQL requests are normally POST requests, but our API is configured to allow traffic from any origin through the use of CORS headers.
+
+If you want to limit access to a specific domains, or not at all,
+you may do so by customizing the controller file `src/main/resources/controllers/graphql.js`.
+
 
 
 == Deploying to Production
 
 To deploy your application to production, your first need a server running Enonic XP.
-If you don't already have a server, we recommend trying out https://developer.enonic.com/guides/xp-on-google-cloud-platform[Google Cloud],
-or request an instance from the https://enonic.com[Enonic Cloud].
 
-NOTE: Enonic XP is both open source, and can run on any infrastructure and in any cloud, in contrast to other popular Headless CMS offerings.
+[NOTE]
+====
+If you don't already have a server, we recommend trying out https://developer.enonic.com/guides/xp-on-google-cloud-platform[Google Cloud],
+or request an instance from the https://enonic.com[Enonic Cloud]. If you are looking for other hosting options, Enonic XP is open source, and capable of running in any cloud or on premises.
+====
+
+The easiest way of deploying an app to a server is by uploading it via the `Applications` admin tool.
+After building/deploying an application locally, you will find the application file in your project's `build/libs/` folder.
+The file is typically called something like: `myproject-1.0.0-SNAPSHOT.jar`.
+
 
 == Removing HMDB
 
