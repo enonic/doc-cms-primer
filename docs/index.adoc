@@ -6,27 +6,25 @@ Step-by-step tutorial to create and serve content through a GraphQL API
 
 NOTE: This tutorial requires Enonic XP 7.0.0 or later
 
-
 == Introduction
 
-Running Enonic XP in headless mode simply means serving curated content as raw data through a web-based API.
-XP can also be combined with traditional web content, and presentation aka "Hybrid CMS".
+This tutorial demonstrates how to model, create and serve structured and curated content through a GraphQL API.
+
+NOTE: If you want to build full blown web pages. Check out the guide: https://developer.enonic.com/guides/my-first-site[My first site].
 
 During this tutorial you will learn how to:
 
-* create new project using the "Headless Starter"
+* create a new project using the "Headless Starter"
 * install and use "Content Studio" for editing content
-* customize the app with new content types
+* customize your application with new content types
 * access and use the API
 
 
 == Create project
 
-To setup a project locally, simply run the following command:
+To create the project, run the following command:
 
-  enonic project create
-
-Choose "Headless CMS starter" from the list of starters, create a *new XP sandbox* and complete the setup wizard.
+  enonic project create -r starter-headless
 
 NOTE: *Don't have the Enonic CLI?* Visit the https://developer.enonic.com/start[Getting started guide] to install it.
 
@@ -60,8 +58,6 @@ To build and deploy the app, run this command from your shell:
 
   enonic project deploy
 
-Accept starting the sandbox
-
 [NOTE]
 ====
 To verify that your app started successfully, you should find an entry similar to this in the sandbox log:
@@ -72,18 +68,15 @@ To verify that your app started successfully, you should find an entry similar t
 
 == Content Studio
 
-You can now point your browser to localhost:8080.
-Create the admin user, or simply click "login without a user".
+From the admin console (available on http://localhost:8080).
 
-Complete the `XP tour` to install some useful apps like https://market.enonic.com/vendors/enonic/content-studio[Content Studio]
+Launch `Content Studio` from the XP menu.
 
-When ready, launch `Content Studio` from the main menu.
-
-NOTE: If XP tour does not start automatically, simply click the top left icon on the home screen
+NOTE: *Missing Content Studio?* Open the `Applications` app, choose `Install` and find it in the list of apps that appear.
 
 == Headless Movie Database
 
-Your app includes a sample dataset we call the "Headless Movie Database".
+Your newly created app includes a sample dataset we call the "Headless Movie Database".
 When the app started, it automatically imported the `HMDB` dataset.
 
 image::images/hmdb.png["Headless Movie Database", width="1022px"]
@@ -399,7 +392,8 @@ The file is typically called something like: `myproject-1.0.0-SNAPSHOT.jar`.
 
 == Removing HMDB
 
-To clean your project for the sample content and code, remove the following files and folders from your project structure:
+If you want to use the starter as a template for your real project?
+Simply delete the following files and folders from the project structure, and you are good to go:
 
 * `src/main/java*` (Java code used to import the HMDB data)
 * `src/main/resources/import*` (the HMDB dataset)
