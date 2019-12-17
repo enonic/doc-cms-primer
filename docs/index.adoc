@@ -203,16 +203,16 @@ Below are a few examples of queries we can use to access `HMDB`.
 
 === Movies and cast
 
-NOTE: Remember to replace `com.example.myapp` and `com_example_myapp` to match the name of your application
+NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your application
 
 .Get display name, and the cast of two movies:
 [source,GraphQL]
 ----
 {
   guillotine {
-    query(query: "type='com.example.myapp:movie'", first: 2) {
+    query(query: "type='com.example.myproject:movie'", first: 2) {
       displayName
-      ... on com_example_myapp_Movie {
+      ... on com_example_myproject_Movie {
         data {
           cast {
             actor {
@@ -281,16 +281,16 @@ NOTE: Remember to replace `com.example.myapp` and `com_example_myapp` to match t
 
 === Person with photo
 
-NOTE: Remember to replace `com.example.myapp` and `com_example_myapp` to match the name of your application
+NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your application
 
 .Name of persons and a link to 400x400 scaled photo
 [source,GraphQL]
 ----
 {
   guillotine {
-    query(query: "ngram('_allText', 'morgan') AND type='com.example.myapp:person'", first: 6) {
+    query(query: "ngram('_allText', 'morgan') AND type='com.example.myproject:person'", first: 6) {
       displayName
-      ... on com_example_myapp_Person {
+      ... on com_example_myproject_Person {
     	  displayName
         data {
           photos(first:1){
