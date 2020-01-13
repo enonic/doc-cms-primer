@@ -62,7 +62,7 @@ To build and deploy the app, run this command from your shell:
 ====
 To verify that your app started successfully, you should find an entry similar to this in the sandbox log:
 
-  2019-04-09 13:40:40,765 INFO ... Application [com.enonic.starter.headless] installed successfully
+  2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully
 ====
 
 
