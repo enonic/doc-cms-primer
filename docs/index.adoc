@@ -125,31 +125,19 @@ image::images/review.png["Sample Review", width="687px"]
 
 == Accessing the API
 
-NOTE: *New to GraphQL?* Check out the https://graphql.org[GraphQL documentation] after completing this tutorial.
+To access and browse the API, simply point your browser to: http://localhost:8080/site/default/draft/hmdb/api
 
-The headless starter uses the the https://market.enonic.com/vendors/enonic/guillotine-headless-lib[Project Guillotine],
-to automatically generate a powerful GraphQL API based on available content of the site.
+The API browser will now load, and the documentation is available on the right hand side.
 
-The easiest way to test the API is as follows:
+image::images/playground.png["GraphQL Playground API browser", width="1052px"]
 
-[cols="1%s,99%a"]
-[frame="none"]
-[grid="none"]
-|============================
-|1| Install https://github.com/prisma/graphql-playground/releases[GraphQL playground] on your device
-|2| Add the following URL: http://localhost:8080/site/default/draft/hmdb/api
-|============================
+The API gives you read-access to all your content. Queries can now be typed into the left hand panel and executed, with the result in the right-hand panel.
+
+NOTE: *New to GraphQL?* After completing the tutorial, check out the https://graphql.org[GraphQL documentation].
 
 
-When GraphQL Playground has successfully connected to the service,
-the API documentation instantly appears on the right hand side.
+Below are a few examples of queries you can use to access the `HMDB` data.
 
-image::images/playground.png["GraphQL Playground", width="1052px"]
-
-The API gives access to the Enonic XP content API and offers strongly typed access to your content.
-Queries can now be typed into the left hand panel and executed, with the result in the center panel.
-
-Below are a few examples of queries we can use to access `HMDB`.
 
 == Sample queries
 
@@ -160,13 +148,15 @@ Below are a few examples of queries we can use to access `HMDB`.
 ----
 {
  guillotine {
-  getChildren(key:"/hmdb/persons" first:5){
+  getChildren(key:"${site}/persons" first:5){
     displayName
     _path
   	}
 	}
 }
 ----
+
+NOTE: `${site}` is a placeholder for the path of the contextual site. In this case it expands to `/hmdb`
 
 .Sample response:
 [source,JSON]
