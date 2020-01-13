@@ -143,7 +143,7 @@ Below are a few examples of queries you can use to access the `HMDB` data.
 
 === Persons
 
-.Get the display name of five items from `persons/``:
+.Get the display name of five items from `persons/` folder:
 [source,GraphQL]
 ----
 {
@@ -193,7 +193,7 @@ NOTE: `${site}` is a placeholder for the path of the contextual site. In this ca
 
 === Movies and cast
 
-NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your application
+NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your specific application (if you changed it during the project init).
 
 .Get display name, and the cast of two movies:
 [source,GraphQL]
