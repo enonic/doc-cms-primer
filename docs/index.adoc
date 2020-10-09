@@ -1,8 +1,8 @@
-= Introduction to Headless CMS for Enonic developers
+= Get started with Headless CMS
 :toc: right
 :experimental:
 
-This guide provides a hands on introduction to using XP in Headless CMS mode.
+This guide provides a step-by-step hands on introduction to using Enonic XP in Headless CMS mode.
 
 NOTE: This guide requires Enonic XP 7
 
@@ -21,8 +21,7 @@ NOTE: If you want to build traditional web pages. Check out the guide: https://d
 
 == Headless Movie Database
 
-Throughout this guide, we will be using the headless CMS demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base]" aka HMDB as our foundation. The app may also be installed to your XP installation directly from Enonic Market.
-
+In this guide, we are using the demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] aka HMDB as a template for our project. The app may also be installed to your XP installation directly from Enonic Market.
 
 == Create project
 
@@ -83,14 +82,14 @@ NOTE: *Missing Content Studio?* Open the `Applications` app, choose `Install` an
 
 == Headless demo project
 
-Your newly created app includes a sample dataset. When the application started, it automatically created a project called "Headless Demo" and imported the `HMDB` dataset.
+Your newly created app includes a sample dataset. When the application started, it automatically created a project called `Headless Demo` and imported the `HMDB` dataset into it.
 
-Simply select this project, and you will see the content as seen in the screenshot below:
+Simply select this project when prompted, and you will see the demo content, similar to the screenshot below:
 
 image::images/hmdb.png["Headless Movie Database", width="1022px"]
 
 
-*HMDB* is built from three different content types: `Person`, `Playlist` and `Movie`.
+NOTE: *HMDB* is built from three different content types: `Person`, `Playlist` and `Movie`.
 Each content type defines a specific form to edit and publish new items.
 
 === Person Content Type
@@ -133,7 +132,7 @@ image::images/review.png["Sample Review", width="687px"]
 
 == Accessing the API
 
-To access and browse the API, simply point your browser to: http://localhost:8080/site/default/draft/hmdb/api
+To access and browse the API, simply point your browser to: http://localhost:8080/site/hmdb/draft/hmdb/api
 
 The API browser will now load, with the documentation immediately available on the right hand side.
 
