@@ -1,32 +1,38 @@
-= Headless CMS Starter
+= Introduction to Headless CMS for Enonic developers
 :toc: right
 :experimental:
 
-Step-by-step tutorial to create and serve content through a GraphQL API
+This guide provides a hands on introduction to using XP in Headless CMS mode.
 
-NOTE: This tutorial requires Enonic XP 7.0.0 or later
+NOTE: This guide requires Enonic XP 7
 
 == Introduction
 
-This tutorial demonstrates how to model, create and serve structured and curated content through a GraphQL API.
-
-NOTE: If you want to build full blown web pages. Check out the guide: https://developer.enonic.com/guides/my-first-site[My first site].
-
-During this tutorial you will learn how to:
+Throughout this tutorial you will learn how to:
 
 * create a new project using the "Headless Starter"
 * install and use "Content Studio" for editing content
 * customize your application with new content types
-* access and use the API
+* reuse schemas across content types (horizontal inheritance)
+* access and use the Headless API
+
+NOTE: If you want to build traditional web pages. Check out the guide: https://developer.enonic.com/guides/my-first-site[My first site]. Don't forget. You can also serve headless content from traditional Enonic sites as well ;-).
+
+
+== Headless Movie Database
+
+Throughout this guide, we will be using the headless CMS demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base]" aka HMDB as our foundation. The app may also be installed to your XP installation directly from Enonic Market.
 
 
 == Create project
 
-To create the project, run the following command:
+NOTE: *Don't have Enonic CLI?* Visit the https://developer.enonic.com/start[Getting started guide] to install it before you continue.
 
-  enonic project create -r starter-headless
 
-NOTE: *Don't have the Enonic CLI?* Visit the https://developer.enonic.com/start[Getting started guide] to install it.
+Create your project by running the following command:
+
+  enonic project create -r app-hmdb
+
 
 == Project structure
 
@@ -54,7 +60,7 @@ sample/ <5>
 
 == Building and Deploying
 
-To build and deploy the app, run this command from your shell:
+To build and deploy the app, simply run this command:
 
   enonic project deploy
 
@@ -74,10 +80,12 @@ Launch `Content Studio` from the XP menu.
 
 NOTE: *Missing Content Studio?* Open the `Applications` app, choose `Install` and find it in the list of apps that appear.
 
-== Headless Movie Database
 
-Your newly created app includes a sample dataset we call the "Headless Movie Database".
-When the app started, it automatically imported the `HMDB` dataset.
+== Headless demo project
+
+Your newly created app includes a sample dataset. When the application started, it automatically created a project called "Headless Demo" and imported the `HMDB` dataset.
+
+Simply select this project, and you will see the content as seen in the screenshot below:
 
 image::images/hmdb.png["Headless Movie Database", width="1022px"]
 
@@ -127,7 +135,7 @@ image::images/review.png["Sample Review", width="687px"]
 
 To access and browse the API, simply point your browser to: http://localhost:8080/site/default/draft/hmdb/api
 
-The API browser will now load, and the documentation is available on the right hand side.
+The API browser will now load, with the documentation immediately available on the right hand side.
 
 image::images/playground.png["GraphQL Playground API browser", width="1052px"]
 
@@ -193,7 +201,7 @@ NOTE: `${site}` is a placeholder for the path of the contextual site. In this ca
 
 === Movies and cast
 
-NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your specific application (if you changed it during the project init).
+NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your specific application (if you changed the project name during the project init).
 
 .Get display name, and the cast of two movies:
 [source,GraphQL]
@@ -323,8 +331,8 @@ When deployed to production, all URLs will be aligned with the production domain
 
 == Creating a site from scratch
 
-So far, we have used the imported content.
-To create your own site and content, we can use Content Studio once more.
+So far, we have used automatically imported content.
+To create your own site and content, simply use Content Studio once more.
 
 To create your own site:
 
@@ -350,7 +358,7 @@ A dependency in the `build.gradle` file, located at your project root ensures th
 
 === Customizing API
 
-The Headless API is provided by the https://developer.enonic.com/docs/guillotine-app[Guillotine project].
+The Headless API is provided by the https://developer.enonic.com/docs/guillotine[Guillotine project].
 You may programmatically customize or extend the GraphQL api, as described in the documentation above.
 
 === CORS headers
@@ -360,9 +368,7 @@ For security reasons, browsers will prevent POST requests from one domain to ano
 
 GraphQL requests are normally POST requests, but our API is configured to allow traffic from any origin through the use of CORS headers.
 
-If you want to limit access to a specific domains, or not at all,
-you may do so by customizing the controller file `src/main/resources/controllers/graphql.js`.
-
+If you want to limit access to a specific domains, or not at all, you may do so by customizing the controller file `src/main/resources/controllers/graphql.js`.
 
 
 == Deploying to Production
@@ -371,22 +377,22 @@ To deploy your application to production, your first need a server running Enoni
 
 [NOTE]
 ====
-If you don't already have a server, we recommend trying out https://developer.enonic.com/guides/xp-on-google-cloud-platform[Google Cloud],
+If you don't already have a server, we recommend trying out https://developer.enonic.com/guides/xp-on-google-cloud-platform[Enonic XP on Google Cloud],
 or request an instance from the https://enonic.com[Enonic Cloud]. If you are looking for other hosting options, Enonic XP is open source, and capable of running in any cloud or on premises.
 ====
 
-The easiest way of deploying an app to a server is by uploading it via the `Applications` admin tool.
-After building/deploying an application locally, you will find the application file in your project's `build/libs/` folder.
-The file is typically called something like: `myproject-1.0.0-SNAPSHOT.jar`.
+With a running server, you may deploy your app by uploading it via the `Applications` admin tool.
+
+After building/deploying an application locally, you will find the application file in your project's `build/libs/` folder. The file is typically called something like: `myproject-1.0.0-SNAPSHOT.jar`.
 
 
-== Removing HMDB
+== Creating a headless project without HMDB
 
-If you want to use the starter as a template for your real project?
-Simply delete the following files and folders from the project structure, and you are good to go:
+The HMDB application is based on the https://market.enonic.com/vendors/enonic/headless-cms-starter[Headless Starter]. 
 
-* `src/main/java*` (Java code used to import the HMDB data)
-* `src/main/resources/import*` (the HMDB dataset)
-* `src/main/resources/site/content-types/*` (HMDB content types)
-* `src/main/resources/site/x-data/*` (X-data form)
-* `sample*` (Sample code)
+To create a clean project directly from the headless starter, simply run the following command: 
+
+  enonic project create -r starter-headless
+
+
+Bon voyage!
