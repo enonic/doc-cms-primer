@@ -70,10 +70,9 @@ To verify that your app started successfully, you should find an entry similar t
   2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully
 ====
 
-For the purposes of this guide, we'll build and deploy our project manually. If you want the app to redeploy automatically whenever you make changes, you can run the build system in https://developer.enonic.com/docs/xp/stable/apps/build-system#continuous_building[continuous
-build mode] by running this command from the project root directory:
+For the purposes of this guide, we'll build and deploy our project manually. If you want the app to redeploy automatically whenever you make changes, you can run the build system in https://developer.enonic.com/docs/xp/stable/apps/build-system#development_mode[development mode] by starting the sandbox with this command:
 
-  ./gradlew deploy --continuous
+  enonic sandbox start --dev
 
 == Content Studio
 
