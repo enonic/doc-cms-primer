@@ -47,7 +47,7 @@ src/
    site/ <2>
     content-types/ <3>
     x-data/ <4>
-sample/ <5>
+samples/ <5>
 ----
 
 <1> Sample content for Headless Movie Database
@@ -129,8 +129,8 @@ To make things even more interesting, we can extend the project with a new conte
 [frame="none"]
 [grid="none"]
 |============================
-|1| *Move the file* `sample/review/review.xml` to `src/main/resources/site/content-types/review/review.xml` in your project.
-|2| *Optionally add icon* by moving the file `sample/review/review.svg` to `src/main/resources/site/content-types/review/review.svg` to get a nice icon in Content Studio.
+|1| *Move the file* `samples/review/review.xml` to `src/main/resources/site/content-types/review/review.xml` in your project.
+|2| *Optionally add icon* by moving the file `samples/review/review.svg` to `src/main/resources/site/content-types/review/review.svg` to get a nice icon in Content Studio.
 |3| *Build and deploy* your application once more.
 |4| *Write A review*. You should now be able to create a "Review" within Content Studio and the *HMDB* site.
 
