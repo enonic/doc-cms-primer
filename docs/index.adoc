@@ -2,7 +2,7 @@
 :toc: right
 :experimental:
 
-This guide provides a basic introduction to using Enonic XP in Headless CMS mode.
+This is a basic introduction to using Enonic XP in Headless mode.
 
 == Introduction
 
@@ -10,8 +10,8 @@ Throughout this tutorial you will learn how to:
 
 * create a new project using a template
 * install and use "Content Studio" for editing content
-* access and use the Headless API
 * customize your application with new content types
+* access and use the Headless API
 * reuse schemas across content types (horizontal inheritance)
 
 NOTE: If you want to build traditional web pages using Enonic's native JavaScript framework. Check out the guide: https://developer.enonic.com/guides/my-first-site[My first site]. Don't forget. You can also add the headless API to a traditional Enonic site as well ;-).
@@ -86,7 +86,7 @@ Launch `Content Studio` from the XP menu.
 NOTE: *Missing Content Studio?* Open the `Applications` app, click `Install` and find it in the list of apps that appear.
 
 
-== Headless demo project
+== Headless demo content
 
 Your newly created app includes a sample dataset. When the application started, it automatically created a project called `Headless Demo` and imported the `HMDB` dataset into it.
 
@@ -203,6 +203,34 @@ NOTE: `${site}` is a placeholder for the path of the contextual site. In this ca
   }
 }
 ----
+
+=== Query variables
+
+GraphQL supports the concept of query variables. Similar to functions you may "re-use" a query by supplying different variables to it - like parameters.
+
+.The Person query, this time using path as a variable:
+[source,GraphQL]
+----
+query($path:ID!){
+ guillotine {
+  getChildren(key:$path first:5){
+    displayName
+    _path
+  	}
+	}
+}
+----
+
+The variables are passed to the query using JSON, this may be added to the API browser from the bottom left corner.
+
+[source,JSON]
+----
+{
+    "path": "${site}/persons"
+}
+----
+
+
 
 === Movies and cast
 
@@ -357,9 +385,9 @@ TIP: You are completely free to group your content in folders and tree-structure
 
 == API setup
 
-The `/api` endpoint is exposed through a controller mapping in the file `src/main/resources/site/site.xml`.
+The API endpoint `/_graphql` is exposed through a controller mapping in the file `src/main/resources/site/site.xml`.
 The controller uses underlying functionality provided through a library.
-A dependency in the `build.gradle` file, located at your project root ensures that the library is downloaded and built into your app.
+A dependency in the `build.gradle` file, located at your project root ensures that the library is downloaded and embedded into your app.
 
 === Customizing API
 
@@ -392,12 +420,11 @@ If you are looking for the raw file, after building/deploying an application loc
 
 == Creating a headless project without HMDB
 
-The Headless Movie DB application used to to bootstrap this project is based on the https://market.enonic.com/vendors/enonic/headless-cms-starter[Headless Starter]. 
+The Headless Movie DB application used to bootstrap this project is based on the https://market.enonic.com/vendors/enonic/headless-cms-starter[Headless Starter]. 
 
 To create a clean project directly from the headless starter, run the following command: 
 
   enonic project create -r starter-headless
-
 
 Bon voyage!
 
