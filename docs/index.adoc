@@ -1,8 +1,8 @@
-= Get started with Headless CMS
+= Headless CMS primer
 :toc: right
 :experimental:
 
-This is a basic introduction to using Enonic XP in Headless mode.
+This is a basic introduction to using Enonic XP as a Headless CMS.
 
 == Introduction
 
@@ -19,21 +19,22 @@ NOTE: If you want to build traditional web pages using Enonic's native JavaScrip
 
 == Headless Movie Database
 
-In this guide, we are using the demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] aka HMDB as a template for our project. The app may also be installed to your XP installation directly from Enonic Market.
+In this guide, we are using the demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] aka HMDB as a template for our project.
 
 == Create project
 
 NOTE: *Don't have Enonic CLI?* Visit the https://developer.enonic.com/start[Getting started guide] to install it before you continue.
 
 
-Create your project by running the following command:
+Create your project by running the following command (NB! Go with the standard options)
 
   enonic project create -r app-hmdb
 
+TIP: Leave out the `-r app-hmdb` option from the command to get the list of available starters.
 
 == Project structure
 
-In the selected folder, you should now have a project structure, looking something like this:
+In the target folder, you should now have a project structure, looking something like this:
 
 .Selected files from the project structure:
 [source,files]
@@ -123,17 +124,12 @@ The benefit of x-data is that it can be re-used across different content types (
 
 To make things even more interesting, we can extend the project with a new content type for reviews.
 
-[cols="1%s,99%a"]
-[frame="none"]
-[grid="none"]
-|============================
-|1| *Move the file* `samples/review/review.xml` to `src/main/resources/site/content-types/review/review.xml` in your project.
-|2| *Optionally add icon* by moving the file `samples/review/review.svg` to `src/main/resources/site/content-types/review/review.svg` to get a nice icon in Content Studio.
-|3| *Build and deploy* your application once more.
-|4| *Write A review*. You should now be able to create a "Review" within Content Studio and the *HMDB* site.
-
+. *Move the file* `samples/review/review.xml` to `src/main/resources/site/content-types/review/review.xml` in your project.
+. *Optionally add icon* by moving the file `samples/review/review.svg` to `src/main/resources/site/content-types/review/review.svg` to get a nice icon in Content Studio.
+. *Build and deploy* your application once more.
+. *Write A review*. You should now be able to create a "Review" within Content Studio and the *HMDB* site.
++
 image::images/review.png["Sample Review", width="687px"]
-|============================
 
 
 == Accessing the API
