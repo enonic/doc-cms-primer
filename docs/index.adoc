@@ -2,35 +2,34 @@
 :toc: right
 :experimental:
 
-This is a basic introduction to using Enonic XP as a Headless CMS.
+This is a quick introduction to using Enonic XP and the GraphQL Content API.
+
+NOTE: For a more detailed introduction, check out the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial].
 
 == Introduction
 
-Throughout this tutorial you will learn how to:
+In this tutorial you will learn how to:
 
 * create a new project using a template
 * install and use "Content Studio" for editing content
 * customize your application with new content types
-* access and use the Headless API
 * reuse schemas across content types (horizontal inheritance)
-
-NOTE: If you want to build traditional web pages using Enonic's native JavaScript framework. Check out the guide: https://developer.enonic.com/guides/my-first-site[My first site]. Don't forget. You can also add the headless API to a traditional Enonic site as well ;-).
-
-
-== Headless Movie Database
-
-In this guide, we are using the demo application https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] aka HMDB as a template for our project.
+* access and use the headless API
 
 == Create project
 
-NOTE: *Don't have Enonic CLI?* Visit the https://developer.enonic.com/start[Getting started guide] to install it before you continue.
-
+NOTE: *You will need Enonic CLI to complete this step.* Visit the https://developer.enonic.com/start[Quickstart guide] to install it before you continue.
 
 Create your project by running the following command (NB! Go with the standard options)
 
   enonic project create -r app-hmdb
 
-TIP: Leave out the `-r app-hmdb` option from the command to get the list of available starters.
+[TIP]
+====
+The command uses the https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] app, aka HMDB as a template for your project.
+
+Drop the "-r app-hmdb" option to see our standard project starters instead.
+====
 
 == Project structure
 
@@ -55,10 +54,9 @@ samples/ <5>
 <4> X-data enables editors to add additional fields to content across different content types
 <5> Sample files that will be used in the tutorial
 
-
 == Building and Deploying
 
-To build and deploy the app, simply run this command:
+To build and start the app, run this command:
 
   enonic project deploy
 
@@ -74,7 +72,6 @@ To verify that your app started successfully, you should find an entry similar t
 For the purposes of this guide, you'll build and deploy the app manually for each step. If you want to redeploy changes automatically, you can either run in https://developer.enonic.com/docs/xp/stable/apps/build-system#development_mode[development mode] (which will instantly pickup changes to your files), or use https://developer.enonic.com/docs/xp/stable/apps/build-system#continuous_building[continuous build mode], which will compile and re-deploy the full application. Use the following commands respectively:
 
   enonic sandbox start --dev
- 
   enonic project gradle deploy --continuous
 ====
 
@@ -82,12 +79,11 @@ For the purposes of this guide, you'll build and deploy the app manually for eac
 
 From the admin console (available on http://localhost:8080).
 
-Launch `Content Studio` from the XP menu.
+Launch the editorial interface: `XP menu -> Content Studio`.
 
-NOTE: *Missing Content Studio?* Open the `Applications` app, click `Install` and find it in the list of apps that appear.
+NOTE: *No Content Studio?* Install it from `XP menu -> Applications -> Install` and find it in the list of apps that appear.
 
-
-== Headless demo content
+== Demo content
 
 Your newly created app includes a sample dataset. When the application started, it automatically created a project called `Headless Demo` and imported the `HMDB` dataset into it.
 
@@ -132,23 +128,30 @@ To make things even more interesting, we can extend the project with a new conte
 image::images/review.png["Sample Review", width="687px"]
 
 
-== Accessing the API
+== GraphQL API
 
-To access and browse the API, click preview - and follow the link - or simply point your browser to: http://localhost:8080/site/hmdb/draft/hmdb/_graphql
+In Content Studio, you should have a menu item called "Query playground". this interface gives you the ability to test and play with the API.
 
-The API browser will now load, with the documentation immediately available on the right hand side.
+image::images/query-playground-empty.png["Query Playground API browser", width="1440px"]
 
-image::images/playground.png["GraphQL Playground API browser", width="1052px"]
+[NOTE]
+====
+**No Query playground?** 
+Then you need to install the "Guillotine" app: `XP Menu -> Applications -> Install``.
 
-The API gives you read-access to all your content. Queries can now be typed into the left hand panel and executed, with the result in the right-hand panel.
+image::images/install-guillotine.png["Install the Guillotine app", width="845px"]
+====
 
-NOTE: *New to GraphQL?* After completing the tutorial, check out the https://graphql.org[GraphQL documentation].
+Query playground, and the API comes from the Guillotine app. The GraphQL API gives you read-access to all content in your project. 
 
+Queries can be typed into the left hand panel and executed, with the result in the right-hand panel. Docs are available top right.
 
-Below are a few examples of queries you can use to access the `HMDB` data.
+NOTE: *Want to know more about GraphQL?* After completing the tutorial, feel free to deep dive into the https://graphql.org[official GraphQL documentation].
 
 
 == Sample queries
+
+Below are a few examples of queries you can use to access the `HMDB` content.
 
 === Persons
 
@@ -157,15 +160,13 @@ Below are a few examples of queries you can use to access the `HMDB` data.
 ----
 {
  guillotine {
-  getChildren(key:"${site}/persons" first:5){
+  getChildren(key:"/hmdb/persons" first:5){
     displayName
     _path
   	}
 	}
 }
 ----
-
-NOTE: `${site}` is a placeholder for the path of the contextual site. In this case it expands to `/hmdb`
 
 .Sample response:
 [source,JSON]
@@ -222,10 +223,9 @@ The variables are passed to the query using JSON, this may be added to the API b
 [source,JSON]
 ----
 {
-    "path": "${site}/persons"
+    "path": "/hmdb/persons"
 }
 ----
-
 
 
 === Movies and cast
@@ -305,7 +305,6 @@ NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to
 }
 ----
 
-
 === Person with photo
 
 NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your application
@@ -358,12 +357,11 @@ NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to
 
 When deployed to production, all URLs will be aligned with the production domain.
 
-== Creating a site from scratch
+== Sites
 
-So far, we have used automatically imported content.
-To create your own site and content, simply use Content Studio once more.
+So far, we have used automatically imported content, the HMDB root item is a site, which is a special content type used to group content.
 
-To create your own site:
+You may create multiple sites within a project. Try it yourself:
 
 [cols="1%s,99%a"]
 [frame="none"]
@@ -374,31 +372,12 @@ To create your own site:
 
 image::images/site.png["Add the application to your site", width="544"]
 
+By adding the application to the site, you effectively tell Content Studio that the content types in this app can be used within this site. Apps may also contribute other useful features to the site, such as default preview.
+
 |3| Start creating content within the new site
 |============================
 
 TIP: You are completely free to group your content in folders and tree-structures, as well as setting permissions as you desire within the site, just like we do with `HMDB`.
-
-== API setup
-
-The API endpoint `/_graphql` is exposed through a controller mapping in the file `src/main/resources/site/site.xml`.
-The controller uses underlying functionality provided through a library.
-A dependency in the `build.gradle` file, located at your project root ensures that the library is downloaded and embedded into your app.
-
-=== Customizing API
-
-The Headless API is provided by the https://developer.enonic.com/docs/guillotine[Guillotine project].
-You may programmatically customize or extend the GraphQL api, as described in the documentation above.
-
-=== CORS headers
-
-Sharing of resources across domains (origins) is known as https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[CORS].
-For security reasons, browsers will prevent POST requests from one domain to another by default.
-
-GraphQL requests are normally POST requests, but our API is configured to allow traffic from any origin through the use of CORS headers.
-
-If you want to limit access to a specific domains, or not at all, you may do so by customizing the controller file `src/main/resources/controllers/graphql.js`.
-
 
 == Deploying to Production
 
@@ -406,21 +385,24 @@ To deploy your application to production, your first need a server running Enoni
 
 [NOTE]
 ====
-If you don't already have a server, sign up for a free trial on https://enonic.com/sign-up/cloud-trial. If you are looking for other hosting options, Enonic XP is open source, and capable of running in any cloud or on premises.
+The fastest way to a server is a free trial on https://enonic.com/sign-up/cloud-trial. If you are looking for other hosting options, Enonic XP is open source, and can be deployed anywhere.
 ====
 
-With a running server, you may install the app via CLI using `enonic cloud project install`, or via the online `Solution / applications` user interface. 
+With a server running, you may install your app using the CLI
+
+  enonic cloud project install
+  
+Or by manually uploading: `Cloud console -> <Solution> -> Applications -> Install`.
 
 If you are looking for the raw file, after building/deploying an application locally, it is placed in your project's `build/libs/` folder. The file is typically called something like: `myproject.jar`.
 
+== Customized API?
 
-== Creating a headless project without HMDB
+The https://developer.enonic.com/docs/guillotine[Guillotine app] exposes a standard API, but you may also embed and customize the API within your own app. 
 
-The Headless Movie DB application used to bootstrap this project is based on the https://market.enonic.com/vendors/enonic/headless-cms-starter[Headless Starter]. 
-
-To create a clean project directly from the headless starter, run the following command: 
-
-  enonic project create -r starter-headless
+Get the details from the link above.
 
 Bon voyage!
+
+
 
