@@ -137,7 +137,7 @@ image::images/query-playground-empty.png["Query Playground API browser", width="
 [NOTE]
 ====
 **No Query playground?** 
-Then you need to install the "Guillotine" app: `XP Menu -> Applications -> Install``.
+Then you need to install the "Guillotine" app: `XP Menu -> Applications -> Install`.
 
 image::images/install-guillotine.png["Install the Guillotine app", width="845px"]
 ====
