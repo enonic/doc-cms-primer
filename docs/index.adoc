@@ -357,7 +357,17 @@ NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to
 
 When deployed to production, all URLs will be aligned with the production domain.
 
-== Sites
+== API endpoint
+
+So far, you've been playing with the API via Content Studio, if you want to access the API's endpoint directly, its available at respectively 
+
+* http://localhost:8080/site/hmdb/draft (Drafts, as seen in Content Studio)
+* http://localhost:8080/site/hmdb/master (the published items).
+
+NOTE: The API uses HTTP POST method by default, as such - a regular browser will just show you a 404 on this URLs.
+
+
+== What are sites?
 
 So far, we have used automatically imported content, the HMDB root item is a site, which is a special content type used to group content.
 
@@ -381,22 +391,29 @@ TIP: You are completely free to group your content in folders and tree-structure
 
 == Deploying to Production
 
-To deploy your application to production, your first need a server running Enonic XP.
+To deploy your application to production, your first need a server running Enonic XP. The steps below will assume you have signed up for a free trial on  https://enonic.com/sign-up/cloud-trial.
 
 [NOTE]
 ====
-The fastest way to a server is a free trial on https://enonic.com/sign-up/cloud-trial. If you are looking for other hosting options, Enonic XP is open source, and can be deployed anywhere.
+If you are looking for other hosting options, Enonic XP is open source, and can be deployed anywhere.
 ====
 
-With a server running, you may install your app using the CLI
-
+. Create a new solution, choose the "CMS essentials" template
+. You may now install your app using the CLI
++
   enonic cloud project install
-  
-Or by manually uploading: `Cloud console -> <Solution> -> Applications -> Install`.
++ 
+Or by uploading via UI: `Cloud console -> <My solution> -> Applications -> Install`.
++
+The app file can be found in your project i.e. `build/libs/<myproject>.jar`.
++
+. Expose your API by creating a new "Route". 
++
+Set the internal URL to "/site/hmdb/master" (and make sure you've published your content)
++
+. You should now be able to query your published content via the route endpoint.
 
-If you are looking for the raw file, after building/deploying an application locally, it is placed in your project's `build/libs/` folder. The file is typically called something like: `myproject.jar`.
-
-== Customized API?
+== Customize your API
 
 The https://developer.enonic.com/docs/guillotine[Guillotine app] exposes a standard API, but you may also embed and customize the API within your own app. 
 
