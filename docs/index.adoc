@@ -1,26 +1,26 @@
-= Headless CMS primer
+= Enonic primer
 :toc: right
 :experimental:
 
-This is a quick introduction to using Enonic XP and the GraphQL Content API.
+An quick introduction to the Enonic way.
 
-NOTE: For a more detailed introduction, check out the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial].
+NOTE: For an in-depth introduction, check out the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial].
 
 == Introduction
 
-In this tutorial you will learn how to:
+This guide will teach you how to:
 
-* create a new project using a template
+* create a new project from a template
 * install and use "Content Studio" for editing content
-* customize your application with new content types
-* reuse schemas across content types (horizontal inheritance)
-* access and use the headless API
+* customize your application with new content schemas
+* access and use the GraphQL API
+* optionally - deploy your app to a live server
 
 == Create project
 
-NOTE: *You will need Enonic CLI to complete this step.* Visit the https://developer.enonic.com/start[Quickstart guide] to install it before you continue.
+NOTE: You will need to install https://developer.enonic.com/start[Enonic CLI] to complete this guide.
 
-Create your project by running the following command (NB! Go with the standard options)
+With Enonic CLI installed, create your project by running the following command. *NB! Go with all the default options.*
 
   enonic project create -r app-hmdb
 
@@ -28,7 +28,7 @@ Create your project by running the following command (NB! Go with the standard o
 ====
 The command uses the https://market.enonic.com/vendors/enonic/headless-movie-db[Headless Movie Data Base] app, aka HMDB as a template for your project.
 
-Drop the "-r app-hmdb" option to see our standard project starters instead.
+By dropping the "-r app-hmdb" option, CLI will list the standard project starters.
 ====
 
 == Project structure
@@ -50,19 +50,19 @@ samples/ <5>
 
 <1> Sample content for Headless Movie Database
 <2> This is where CMS-specific functionality is placed
-<3> Content Types are placed in this directory
-<4> X-data enables editors to add additional fields to content across different content types
-<5> Sample files that will be used in the tutorial
+<3> Content Types schemas are placed in this directory
+<4> X-data extend existing content types with additional fields
+<5> Code samples that will be used later in this guide
 
 == Building and Deploying
 
-To build and start the app, run this command:
+To build and start the app, run this command. It will create and start a sandbox with your app in it. *Go with the default options*:
 
   enonic project deploy
 
 [NOTE]
 ====
-To verify that your app started successfully, you should find an entry similar to this in the sandbox log:
+To verify that your app started successfully, you may find an entre like this within in the sandbox log:
 
   2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully
 ====
@@ -77,15 +77,17 @@ For the purposes of this guide, you'll build and deploy the app manually for eac
 
 == Content Studio
 
-From the admin console (available on http://localhost:8080).
+With the sandbox running, you now need to install Content Studio - which is also available as an Enonic app.
 
-Launch the editorial interface: `XP menu -> Content Studio`.
+. **Access the XP boot page** on http://localhost:8080, and click `Admin Login`. This will bring you to the Admin Dashboard.
++
+. **Install Content Studio** from `XP menu -> Applications -> Install` and find it in the list of apps that appear.
+. **Launch Content Studio** from `XP menu -> Content Studio`.
 
-NOTE: *No Content Studio?* Install it from `XP menu -> Applications -> Install` and find it in the list of apps that appear.
 
-== Demo content
+== Sample content
 
-Your newly created app includes a sample dataset. When the application started, it automatically created a project called `Headless Demo` and imported the `HMDB` dataset into it.
+Your freshly created app includes a sample dataset. When the application started, it automatically created a content project called `Headless Demo` and imported the `HMDB` dataset into it.
 
 Select this project when prompted, and you will see the demo content, similar to the screenshot below:
 
@@ -95,10 +97,9 @@ image::images/hmdb.png["Headless Movie Database", width="1022px"]
 NOTE: *HMDB* is consists of four different content types: `Article`, `Person`, `Playlist` and `Movie`.
 Each content type defines a specific form to edit and publish new items.
 
-=== Person Content Type
+== Person Content Type
 
-Let's have a closer look at the content type "Person".
-When creating or editing a Person content, this is what the form looks like in the Content Studio App:
+When creating or editing a Person content item, this is what the form looks like in the Content Studio App:
 
 image::images/person.png["Person Form", width="728px"]
 
@@ -106,31 +107,36 @@ The form definition comes from the project file `/src/main/resources/site/conten
 
 === eXtra Data
 
-This form also has an additional step for "Social Media" as can be seen below:
+Below the `Person` form fields, you can also see an additional group of fields called `Social Media`:
 
-image::images/some.png["Social Media form step", width="737px"]
+image::images/some.png["Social Media form fields", width="737px"]
 
-This step is loaded from a so-called eXtra data file (x-data for short).
+This form step is loaded from a so-called eXtra data schema (x-data for short).
 The file is located in `/src/main/resources/site/x-data/SoMe/SoMe.xml`
 
-The benefit of x-data is that it can be re-used across different content types (even across different apps within the same site).
+The benefit of x-data is that it can be re-used across different content types, even content types coming from other applications.
 
+== Add a custom content type
 
-== Adding a custom content type
+To make things more interesting, let's add the `Review` content type.
 
-To make things even more interesting, we can extend the project with a new content type for reviews.
-
-. *Move the file* `samples/review/review.xml` to `src/main/resources/site/content-types/review/review.xml` in your project.
-. *Optionally add icon* by moving the file `samples/review/review.svg` to `src/main/resources/site/content-types/review/review.svg` to get a nice icon in Content Studio.
-. *Build and deploy* your application once more.
-. *Write A review*. You should now be able to create a "Review" within Content Studio and the *HMDB* site.
+. *Copy or move the file* `samples/review/review.xml` to `src/main/resources/site/content-types/review/review.xml`.
+. *Optionally add an icon* by copying or moving the file `samples/review/review.svg` to `src/main/resources/site/content-types/review/review.svg`. This will give your reviews a nice icon in Content Studio.
+. *Build and deploy* your application once more (do this from a new terminal window to avoid stopping the sandbox).
+. *Write A review*. From Content Studio, within the *HMDB* site folder, click new and select `Review` to create a new content item.
 +
 image::images/review.png["Sample Review", width="687px"]
 
 
 == GraphQL API
 
-In Content Studio, you should have a menu item called "Query playground". this interface gives you the ability to test and play with the API.
+Like Content Studio, the GraphQL API is available via an app.
+
+**Install Guillotine app** from `XP menu -> Applications -> Install` and find it in the list of apps that appear.
+
+image::images/install-guillotine.png["Install the Guillotine app", width="845px"]
+
+After installing Guillotine, the Content Studio left hand menu will show a new option called `Query playground`. This interface gives you the ability to test and play with the GraphQL API.
 
 image::images/query-playground-empty.png["Query Playground API browser", width="1440px"]
 
@@ -139,10 +145,9 @@ image::images/query-playground-empty.png["Query Playground API browser", width="
 **No Query playground?** 
 Then you need to install the "Guillotine" app: `XP Menu -> Applications -> Install`.
 
-image::images/install-guillotine.png["Install the Guillotine app", width="845px"]
 ====
 
-Query playground, and the API comes from the Guillotine app. The GraphQL API gives you read-access to all content in your project. 
+This API gives you read-access to all content in your project. 
 
 Queries can be typed into the left hand panel and executed, with the result in the right-hand panel. Docs are available top right.
 
@@ -230,7 +235,7 @@ The variables are passed to the query using JSON, this may be added to the API b
 
 === Movies and cast
 
-NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your specific application (if you changed the project name during the project init).
+NOTE: If you changed the name of your app in the first step: Replace `com.example.myproject` and `com_example_myproject` for this query to work.
 
 .Get display name, and the cast of two movies:
 [source,GraphQL]
@@ -307,7 +312,7 @@ NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to
 
 === Person with photo
 
-NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to match the name of your application
+NOTE: Set a custom name for your app? You must then replace `com.example.myproject` and `com_example_myproject` for this query to work.
 
 .Name of persons and a link to 400x400 scaled photo
 [source,GraphQL]
@@ -355,10 +360,9 @@ NOTE: Remember to replace `com.example.myproject` and `com_example_myproject` to
 }
 ----
 
-When deployed to production, all URLs will be aligned with the production domain.
+When deployed to production, these URLs will be aligned with the production endpoint.
 
 == API endpoint
-
 So far, you've been playing with the API via Content Studio, if you want to access the API's endpoint directly, its available at respectively 
 
 * http://localhost:8080/site/hmdb/draft (Drafts, as seen in Content Studio)
@@ -369,7 +373,7 @@ NOTE: The API uses HTTP POST method by default, as such - a regular browser will
 
 == What are sites?
 
-So far, we have used automatically imported content, the HMDB root item is a site, which is a special content type used to group content.
+So far, we have used automatically imported content, the HMDB root item has the content type "Site", which is an optional content type used to group content.
 
 You may create multiple sites within a project. Try it yourself:
 
@@ -387,37 +391,37 @@ By adding the application to the site, you effectively tell Content Studio that 
 |3| Start creating content within the new site
 |============================
 
-TIP: You are completely free to group your content in folders and tree-structures, as well as setting permissions as you desire within the site, just like we do with `HMDB`.
+TIP: Sites are optional. You may also add applications to the project root via the settings menu in Content Studio.
 
 == Deploying to Production
 
-To deploy your application to production, your first need a server running Enonic XP. The steps below will assume you have signed up for a free trial on  https://enonic.com/sign-up/cloud-trial.
+To deploy your application to production, you'll need a server running Enonic XP. The steps below will assume you have already created an account on https://enonic.com/sign-up/cloud-trial.
 
 [NOTE]
 ====
 If you are looking for other hosting options, Enonic XP is open source, and can be deployed anywhere.
 ====
 
-. Create a new solution, choose the "CMS essentials" template
-. You may now install your app using the CLI
+
+. **Create a new solution** from the Enonic Cloud Console. NB! Choose the "CMS essentials" template
+. Install your app using the CLI
 +
   enonic cloud project install
 + 
-Or by uploading via UI: `Cloud console -> <My solution> -> Applications -> Install`.
+Alternatively upload the app via UI: `Cloud console -> <My solution> -> Applications -> Install`.
+The app file can be found in your project folder i.e. `build/libs/<myproject>.jar`.
 +
-The app file can be found in your project i.e. `build/libs/<myproject>.jar`.
+. **Expose your API** by creating a Route in Cloud Console. 
 +
-. Expose your API by creating a new "Route". 
+Specify internal URL as `/site/hmdb/master`
 +
-Set the internal URL to "/site/hmdb/master" (and make sure you've published your content)
-+
-. You should now be able to query your published content via the route endpoint.
+. **Query your published content** via the new route endpoint.
+
+
 
 == Customize your API
 
-The https://developer.enonic.com/docs/guillotine[Guillotine app] exposes a standard API, but you may also embed and customize the API within your own app. 
-
-Get the details from the link above.
+The https://developer.enonic.com/docs/guillotine[Guillotine app] exposes a standard API, but you may also embed and customize the API if needed.
 
 Bon voyage!
 
