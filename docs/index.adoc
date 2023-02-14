@@ -1,8 +1,8 @@
-= Enonic primer
+= Introduction to Enonic
 :toc: right
 :experimental:
 
-An quick introduction to the Enonic way.
+An quick introduction to Enonic XP, Content Studio and the GraphQL API.
 
 NOTE: For an in-depth introduction, check out the https://developer.enonic.com/docs/developer-101[Developer 101 tutorial].
 
