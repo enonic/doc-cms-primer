@@ -91,7 +91,7 @@ Your freshly created app includes a sample dataset. When the application started
 
 Select this project when prompted, and you will see the demo content, similar to the screenshot below:
 
-image::images/hmdb.png["Headless Movie Database", width="1022px"]
+image::images/content-studio-in-action.gif["Content Studio with sample content", width="1911px"]
 
 
 NOTE: *HMDB* is consists of four different content types: `Article`, `Person`, `Playlist` and `Movie`.
