@@ -56,9 +56,14 @@ samples/ <5>
 
 == Building and Deploying
 
-To build and start the app, run this command. It will create and start a sandbox with your app in it. *Go with the default options*:
+To build and start the app, run this command. *Go with the default options*:
 
-  enonic project deploy
+  enonic dev
+
+[NOTE]
+====
+`enonic dev` command will start your sandbox in detached dev mode, and also execute the `dev` gradle task on the hmdb starter, providing you a smooth experience while developing with Enonic. For further details on Enonic CLI's dev mode, read the https://developer.enonic.com/docs/enonic-cli/stable/dev#dev[docs].
+====
 
 [NOTE]
 ====
@@ -67,13 +72,6 @@ To verify that your app started successfully, you may find an entre like this wi
   2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully
 ====
 
-[TIP]
-====
-For the purposes of this guide, you'll build and deploy the app manually for each step. If you want to redeploy changes automatically, you can either run in https://developer.enonic.com/docs/xp/stable/apps/build-system#development_mode[development mode] (which will instantly pickup changes to your files), or use https://developer.enonic.com/docs/xp/stable/apps/build-system#continuous_building[continuous build mode], which will compile and re-deploy the full application. Use the following commands respectively:
-
-  enonic sandbox start --dev
-  enonic project gradle deploy --continuous
-====
 
 == Content Studio
 
