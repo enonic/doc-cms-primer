@@ -56,7 +56,7 @@ samples/ <5>
 
 == Building and Deploying
 
-To build and start the app, run this command. *Go with the default options*:
+To build and start the app, run this command (*go with the default options* when asked for sandbox details):
 
   enonic dev
 
@@ -67,7 +67,7 @@ To build and start the app, run this command. *Go with the default options*:
 
 [NOTE]
 ====
-To verify that your app started successfully, you may find an entre like this within in the sandbox log:
+If your app started successfully, there will be an entry similar to this one in the sandbox log:
 
   2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully
 ====
