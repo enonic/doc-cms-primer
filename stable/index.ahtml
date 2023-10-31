@@ -606,11 +606,11 @@ samples/ <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 <h2 id="building_and_deploying"><a class="link" href="#building_and_deploying">Building and Deploying</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To build and start the app, run this command. It will create and start a sandbox with your app in it. <strong>Go with the default options</strong>:</p>
+<p>To build and start the app, run this command (<strong>go with the default options</strong> when asked for sandbox details):</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>enonic project deploy</pre>
+<pre>enonic dev</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -621,31 +621,25 @@ samples/ <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>To verify that your app started successfully, you may find an entre like this within in the sandbox log:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully</pre>
-</div>
+<p><code>enonic dev</code> command will start your sandbox in detached dev mode, and also execute the <code>dev</code> gradle task on the hmdb starter, providing you a smooth experience while developing with Enonic. For further details on Enonic CLI&#8217;s dev mode, read the <a href="https://developer.enonic.com/docs/enonic-cli/stable/dev#dev">docs</a>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>For the purposes of this guide, you&#8217;ll build and deploy the app manually for each step. If you want to redeploy changes automatically, you can either run in <a href="https://developer.enonic.com/docs/xp/stable/apps/build-system#development_mode">development mode</a> (which will instantly pickup changes to your files), or use <a href="https://developer.enonic.com/docs/xp/stable/apps/build-system#continuous_building">continuous build mode</a>, which will compile and re-deploy the full application. Use the following commands respectively:</p>
+<p>If your app started successfully, there will be an entry similar to this one in the sandbox log:</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>enonic sandbox start --dev
-enonic project gradle deploy --continuous</pre>
+<pre>2019-04-09 13:40:40,765 INFO ... Application [com.example.myproject] installed successfully</pre>
 </div>
 </div>
 </td>
@@ -1213,7 +1207,7 @@ The app file can be found in your project folder i.e. <code>build/libs/&lt;mypro
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-04 08:58:45 UTC
+Last updated 2023-10-31 06:44:53 UTC
 </div>
 </div>
 </body>
